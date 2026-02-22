@@ -1,6 +1,7 @@
 package com.guides.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +30,11 @@ public class UserController {
 	public User update(@PathVariable int id, @RequestBody User u) {
 		u.setId(id);
 		return service.create(u);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable int id) {
+		service.delete(id);
 	}
 
 }

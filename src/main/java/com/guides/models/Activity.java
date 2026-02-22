@@ -1,9 +1,12 @@
 package com.guides.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +26,8 @@ public class Activity {
 	private String openingHours;
 	private int visitorder;
 	private int daynumber;
+	@JsonBackReference
+	@ManyToOne
+	private Guide guide;
 
 }

@@ -3,6 +3,8 @@ package com.guides.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +29,8 @@ public class Guide {
 	private String description;
 	private int days;
 	private String season;
-	@OneToMany(cascade = CascadeType.ALL)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "guide", cascade = CascadeType.ALL)
 	private List<Activity> activities = new ArrayList<>();
 	@ManyToMany
 	private List<User> invitedUsers = new ArrayList<>();

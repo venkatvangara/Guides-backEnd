@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class GuideService {
-	private final GuideRepository rep = null;
+
+	private final GuideRepository rep;
 
 	public List<Guide> getAll() {
 		return rep.findAll();
@@ -20,20 +21,21 @@ public class GuideService {
 
 	public Guide getById(int id) {
 		return rep.findById(id).orElse(null);
-
 	}
 
 	public Guide create(Guide g) {
 		return rep.save(g);
-
 	}
 
 	public void delete(int id) {
 		rep.deleteById(id);
 	}
 
+	public Guide save(Guide guide) {
+		return rep.save(guide);
+	}
+
 	public List<Guide> getGuidesForUser(int userId) {
 		return rep.findByInvitedUsersId(userId);
 	}
-
 }
