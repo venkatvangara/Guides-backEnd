@@ -13,18 +13,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 
-	private final UserRepository rep = null;
+	private final UserRepository repo;
 
 	public List<User> getAll() {
-		return rep.findAll();
+		return repo.findAll();
+	}
+
+	public User getById(int id) {
+		return repo.findById(id).orElse(null);
 	}
 
 	public User create(User u) {
-		return rep.save(u);
+		return repo.save(u);
+	}
+
+	public User update(int id, User u) {
+		u.setId(id);
+		return repo.save(u);
 	}
 
 	public void delete(int id) {
-		rep.deleteById(id);
+		repo.deleteById(id);
 	}
-
 }

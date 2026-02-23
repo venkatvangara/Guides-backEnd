@@ -2,31 +2,51 @@ package com.guides.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guides.models.Activity;
-import com.guides.repositories.ActivityRepository;
+import com.guides.services.ActivityService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/activities")
-@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ActivityController {
-	@Autowired
-	private ActivityRepository rep;
 
-	@GetMapping
-	public List<Activity> getAll() {
-		return rep.findAll();
+	private final ActivityService service;
+
+	@GetMapping("/guide/{guideId}")
+	public List<Activity> getByGuide(@PathVariable("guideId") int guideId) {
+		return service.getByGuideId(guideId);
 	}
 
-	@PostMapping
-	public Activity create(@RequestBody Activity activity) {
-		return rep.save(activity);
+	@PostMapping("/guide/{guideId}")
+	public Activity create(@PathVariable("guideId") int guideId, @RequestParam("userId") int userId,
+			@RequestBody Activity a) {
+
+		return service.create(guideId, userId, a);
+	}
+
+	@PutMapping("/{id}")
+	public Activity update(@PathVariable("id") int id, @RequestParam("userId") int userId, @RequestBody Activity a) {
+
+		return service.update(id, userId, a);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") int id, @RequestParam("userId") int userId) {
+
+		service.delete(id, userId);
 	}
 }

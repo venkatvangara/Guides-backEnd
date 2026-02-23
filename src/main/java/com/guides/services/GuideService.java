@@ -19,8 +19,11 @@ public class GuideService {
 		return rep.findAll();
 	}
 
+//	public Guide getById(int id) {
+//		return rep.findById(id).orElse(null);
+//	}
 	public Guide getById(int id) {
-		return rep.findById(id).orElse(null);
+		return rep.findById(id).orElseThrow(() -> new RuntimeException("Guide not found"));
 	}
 
 	public Guide create(Guide g) {
@@ -33,6 +36,10 @@ public class GuideService {
 
 	public Guide save(Guide guide) {
 		return rep.save(guide);
+	}
+
+	public Guide update(Guide g) {
+		return rep.save(g);
 	}
 
 	public List<Guide> getGuidesForUser(int userId) {
